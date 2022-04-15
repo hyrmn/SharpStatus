@@ -1,0 +1,45 @@
+{
+  "name": "sharpstatussite",
+  "version": "1.0.0",
+  "description": "The marketing site for SharpStatus - The premier way to track team mood",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf ./dist/",
+    "build": "eleventy",
+    "build-prod": "cross-env NODE_ENV=production npm run clean && npm run build",
+    "watch": "eleventy --serve --port=8080",
+    "start": "netlify dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyrmn/SharpStatus.git"
+  },
+  "keywords": [
+    "tailwind",
+    "11ty",
+    "eleventy"
+  ],
+  "author": "Ben Hyrman",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/hyrmn/SharpStatus/issues"
+  },
+  "homepage": "https://github.com/hyrmn/SharpStatus#readme",
+  "dependencies": {
+    "axios": "^0.26.1"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^1.0.0",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
+    "@tailwindcss/forms": "^0.5.0",
+    "@tailwindcss/typography": "^0.5.2",
+    "autoprefixer": "^10.4.4",
+    "cross-env": "^7.0.3",
+    "luxon": "^2.3.1",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.12",
+    "postcss-import": "^14.1.0",
+    "rimraf": "^3.0.2",
+    "tailwindcss": "^3.0.24"
+  }
+}
