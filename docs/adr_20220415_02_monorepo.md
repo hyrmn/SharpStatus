@@ -1,0 +1,1 @@
+To make it easier to clone / repurpose / reuse the app for other innovation ideas, the app and marketing site will sit together in one repo. The application will be under `/app` and the marketing site will be under `/site`. 
