@@ -50,7 +50,8 @@ title: SharpStatus - Your team's pulse; at a glance
               <p class="mt-6 mx-auto max-w-2xl text-lg text-cyan-100">
               You will only receive news about SharpStatus and your email address will never be sold. Easily opt out at any time.</p>
             </div>
-            <form action="#" class="mt-12 sm:mx-auto sm:max-w-lg sm:flex">
+
+            <form action="/api/sign-up" hx-get="/api/sign-up" hx-swap="innerHTML" method="get" class="mt-12 sm:mx-auto sm:max-w-lg sm:flex" _="on htmx:responseError put 'There was an error signing you up' into me">
               <div class="min-w-0 flex-1">
                 <label for="cta-email" class="sr-only">Email address</label>
                 <input id="cta-email" type="email" class="block w-full border border-transparent rounded-md px-5 py-3 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-cyan-500" placeholder="Enter your email">
@@ -59,6 +60,7 @@ title: SharpStatus - Your team's pulse; at a glance
                 <button type="submit" class="block w-full rounded-md border border-transparent px-5 py-3 bg-gray-900 text-base font-medium text-white shadow hover:bg-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-cyan-500 sm:px-10">Notify me</button>
               </div>
             </form>
+
           </div>
         </div>
       </div>
