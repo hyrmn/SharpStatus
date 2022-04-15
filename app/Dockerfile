@@ -7,10 +7,9 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["SharpStatus/SharpStatus.csproj", "SharpStatus/"]
-RUN dotnet restore "SharpStatus/SharpStatus.csproj"
-COPY . .
-WORKDIR "/src/SharpStatus"
+COPY ["src/SharpStatus.csproj", "src/"]
+RUN dotnet restore "src/SharpStatus.csproj"
+COPY ./src .
 RUN dotnet build "SharpStatus.csproj" -c Release -o /app/build
 
 FROM build AS publish
