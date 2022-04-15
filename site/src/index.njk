@@ -1,1 +1,91 @@
-<div>This is it</div>
+---
+layout: layout.njk
+title: SharpStatus - Your team's pulse; at a glance
+---
+<div class="bg-white">
+  <main>
+    <div class="pt-8 overflow-hidden sm:pt-12 lg:relative lg:py-48">
+      <div class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl lg:grid lg:grid-cols-2 lg:gap-24">
+        <div>
+          <div>
+            <svg class="h-16 w-auto text-teal-400" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2Z"/>
+            </svg>
+          </div>
+          <div class="mt-20">
+            <div class="mt-6 sm:max-w-xl">
+              <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">Your team's status and mood at a glance</h1>
+              <p class="mt-6 text-xl text-gray-500">With SharpStatus, your team can quickly share their status, mood, and blockers. Enabling better collaboration and smoother delivery.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="relative mt-24 sm:mt-32 sm:py-16">
+      <div aria-hidden="true" class="hidden sm:block">
+        <div class="absolute inset-y-0 left-0 w-1/2 bg-gray-50 rounded-r-3xl"></div>
+        <svg class="absolute top-8 left-1/2 -ml-3" width="404" height="392" fill="none" viewBox="0 0 404 392">
+          <defs>
+            <pattern id="8228f071-bcee-4ec8-905a-2a059a2cc4fb" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+              <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
+            </pattern>
+          </defs>
+          <rect width="404" height="392" fill="url(#8228f071-bcee-4ec8-905a-2a059a2cc4fb)" />
+        </svg>
+      </div>
+      <div class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
+        <div class="relative rounded-2xl px-6 py-10 bg-cyan-500 overflow-hidden shadow-xl sm:px-12 sm:py-20">
+          <div aria-hidden="true" class="absolute inset-0 -mt-72 sm:-mt-32 md:mt-0">
+            <svg class="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1463 360">
+              <path class="text-cyan-400 text-opacity-40" fill="currentColor" d="M-82.673 72l1761.849 472.086-134.327 501.315-1761.85-472.086z" />
+              <path class="text-cyan-600 text-opacity-40" fill="currentColor" d="M-217.088 544.086L1544.761 72l134.327 501.316-1761.849 472.086z" />
+            </svg>
+          </div>
+          <div class="relative">
+            <div class="sm:text-center">
+              <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">Get notified when we&rsquo;re launching.</h2>
+              <p class="mt-6 mx-auto max-w-2xl text-lg text-cyan-100">
+              We will invite early adopters at the end of April. Join the mailing list to get a sneak peek at upcoming features and learn about development behind the scenes. 
+              </p>
+              <p class="mt-6 mx-auto max-w-2xl text-lg text-cyan-100">
+              You will only receive news about SharpStatus and your email address will never be sold. Easily opt out at any time.</p>
+            </div>
+            <form action="#" class="mt-12 sm:mx-auto sm:max-w-lg sm:flex">
+              <div class="min-w-0 flex-1">
+                <label for="cta-email" class="sr-only">Email address</label>
+                <input id="cta-email" type="email" class="block w-full border border-transparent rounded-md px-5 py-3 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-cyan-500" placeholder="Enter your email">
+              </div>
+              <div class="mt-4 sm:mt-0 sm:ml-3">
+                <button type="submit" class="block w-full rounded-md border border-transparent px-5 py-3 bg-gray-900 text-base font-medium text-white shadow hover:bg-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-cyan-500 sm:px-10">Notify me</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="mt-24 bg-gray-900 sm:mt-12">
+    <div class="mx-auto max-w-md py-12 px-4 overflow-hidden sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
+      <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
+
+      </nav>
+      <div class="mt-8 flex justify-center space-x-6">
+        <a href="https://twitter.com/onemousesoftware" class="text-gray-400 hover:text-gray-300">
+          <span class="sr-only">Twitter</span>
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+          </svg>
+        </a>
+
+        <a href="https://github.com/hyrmn" class="text-gray-400 hover:text-gray-300">
+          <span class="sr-only">GitHub</span>
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+      <p class="mt-8 text-center text-base text-gray-400">Released under <a href="https://github.com/hyrmn/SharpStatus/blob/main/UNLICENSE" class="text-gray-400 hover:text-gray-300">The Unlicense</a> unencumbered into the public domain.</p>
+    </div>
+  </footer>
+</div>
