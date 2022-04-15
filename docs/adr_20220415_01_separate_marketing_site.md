@@ -1,1 +1,3 @@
-To make it easier to clone / repurpose / reuse the app for other innovation ideas, the app and marketing site will sit together in one repo. The application will be under `/app` and the marketing site will be under `/site`. 
+For cost savings and due to the separate deployment cycle, the marketing site will be hosted separate from the application. This will allow us to take advantage of Netlify or Google static sites and lessen the load on the app.
+
+One potential downside is that the site won't be "warmed" by getting search engine or organic hits on the marketing site.
