@@ -3,19 +3,28 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-COPY ["src/SharpStatusApp/SharpStatusApp.csproj", "SharpStatusApp/"]
-RUN dotnet restore "SharpStatusApp/SharpStatusApp.csproj"
-COPY ./src .
-RUN dotnet build "SharpStatusApp/SharpStatusApp.csproj" -c Release -o /app/build
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS dotnet-restore
+WORKDIR /work
+COPY SharpStatus.sln .
+COPY ./src/SharpStatusApp/SharpStatusApp.csproj ./src/SharpStatusApp/
+COPY ./test/SharpStatusApp.Tests/SharpStatusApp.Tests.csproj ./test/SharpStatusApp.Tests/
+RUN dotnet restore -r linux-musl-x64
 
-FROM build AS publish
-RUN dotnet publish "SharpStatusApp/SharpStatusApp.csproj" -c Release -o /app/publish
+FROM dotnet-restore AS test
+COPY ./src/ ./src
+COPY ./test/ ./test
+RUN dotnet build --no-restore
+RUN dotnet test -r linux-musl-x64 --no-restore --no-build
 
-FROM base AS final
+FROM dotnet-restore AS publish
+COPY ./src/ ./src
+COPY ./test/ ./test
+RUN dotnet build ./src/SharpStatusApp/SharpStatusApp.csproj -c release -o /build -r linux-musl-x64  --self-contained false --no-restore
+RUN dotnet publish -c release -o /dist -r linux-musl-x64 --self-contained false --no-restore
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS runtime
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=publish /dist .
 
 ENV ASPNETCORE_ENVIRONMENT=production
 ENV ASPNETCORE_URLS http://+:8080
