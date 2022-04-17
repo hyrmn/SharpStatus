@@ -1,0 +1,12 @@
+{
+    "sdk": {
+      "version": "6.0.100",
+      "rollForward": "latestFeature"
+    },
+    "scriptShell": "pwsh",
+    "scripts": {
+      "build": "dotnet build --configuration Release",
+      "test": "dotnet test --configuration Release",
+      "ci": "dotnet r build && dotnet r test"
+    }
+  }
