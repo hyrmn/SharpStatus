@@ -1,9 +1,8 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-WORKDIR /app
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS base
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS dotnet-restore
+FROM base AS dotnet-restore
 WORKDIR /work
 COPY SharpStatus.sln .
 COPY ./src/SharpStatusApp/SharpStatusApp.csproj ./src/SharpStatusApp/
@@ -18,7 +17,6 @@ RUN dotnet test -r linux-musl-x64 --no-restore --no-build
 
 FROM dotnet-restore AS publish
 COPY ./src/ ./src
-COPY ./test/ ./test
 RUN dotnet build ./src/SharpStatusApp/SharpStatusApp.csproj -c release -o /build -r linux-musl-x64  --self-contained false --no-restore
 RUN dotnet publish -c release -o /dist -r linux-musl-x64 --self-contained false --no-restore
 
