@@ -5,13 +5,13 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["src/SharpStatus.csproj", "src/"]
-RUN dotnet restore "src/SharpStatus.csproj"
+COPY ["src/SharpStatusApp/SharpStatusApp.csproj", "SharpStatusApp/"]
+RUN dotnet restore "SharpStatusApp/SharpStatusApp.csproj"
 COPY ./src .
-RUN dotnet build "SharpStatus.csproj" -c Release -o /app/build
+RUN dotnet build "SharpStatusApp/SharpStatusApp.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "SharpStatus.csproj" -c Release -o /app/publish
+RUN dotnet publish "SharpStatusApp/SharpStatusApp.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
@@ -22,4 +22,4 @@ ENV ASPNETCORE_URLS http://+:8080
 
 EXPOSE 8080
 
-ENTRYPOINT ["dotnet", "SharpStatus.dll"]
+ENTRYPOINT ["dotnet", "SharpStatusApp.dll"]
