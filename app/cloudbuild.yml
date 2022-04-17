@@ -9,11 +9,13 @@ steps:
   args: ['build',
         '--target', 'runtime', 
         '-t', 'gcr.io/$PROJECT_ID/${_IMAGE_NAME}:$SHORT_SHA',
-        '-t', 'gcr.io/$PROJECT_ID/${_IMAGE_NAME}:latest' 
+        '-t', 'gcr.io/$PROJECT_ID/${_IMAGE_NAME}:latest',
         '-f', './app/Dockerfile', './app']
+
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/${_IMAGE_NAME}:$SHORT_SHA']
+
 # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
