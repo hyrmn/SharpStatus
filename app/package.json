@@ -1,0 +1,8 @@
+{
+  "name": "sharpstatusapp",
+  "version": "1.0.0",
+  "description": "The SharpStatus application",
+  "workspaces": [
+    "./src/*"
+  ]
+}

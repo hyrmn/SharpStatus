@@ -2,7 +2,6 @@
   "name": "sharpstatussite",
   "version": "1.0.0",
   "description": "The marketing site for SharpStatus - The premier way to track team mood",
-  "main": "index.js",
   "scripts": {
     "clean": "rimraf ./dist/",
     "build": "eleventy",
@@ -10,24 +9,13 @@
     "watch": "eleventy --serve --port=8080",
     "start": "netlify dev"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hyrmn/SharpStatus.git"
-  },
   "keywords": [
     "tailwind",
     "11ty",
     "eleventy"
   ],
-  "author": "Ben Hyrman",
-  "license": "Unlicense",
-  "bugs": {
-    "url": "https://github.com/hyrmn/SharpStatus/issues"
-  },
-  "homepage": "https://github.com/hyrmn/SharpStatus#readme",
   "dependencies": {
     "@11ty/eleventy": "^1.0.0",
-    "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.0",
     "@tailwindcss/typography": "^0.5.2",

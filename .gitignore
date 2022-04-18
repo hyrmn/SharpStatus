@@ -49,3 +49,4 @@ _ReSharper*/
 *.DotSettings.user
 
 node_modules/
+app/src/SharpStatusApp/wwwroot/css
