@@ -50,3 +50,5 @@ _ReSharper*/
 
 node_modules/
 app/src/SharpStatusApp/wwwroot/css
+app/src/SharpStatusApp/data
+!app/src/SharpStatusApp/data/.gitkeep

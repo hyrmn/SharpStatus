@@ -1,6 +1,9 @@
 global using Serilog;
 
 using Tailwind;
+using Microsoft.EntityFrameworkCore;
+using SharpStatusApp.Data;
+using SharpStatusApp.Areas.Identity.Data;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -10,7 +13,6 @@ Log.Information("Starting up");
 
 try
 {
-
     var builder = WebApplication.CreateBuilder(args);
     builder.Configuration.AddEnvironmentVariables();
 
@@ -18,8 +20,15 @@ try
         loggerConfiguration.ReadFrom.Configuration(hostContext.Configuration)
     );
 
+    var connectionString = builder.Configuration.GetConnectionString("UserContextConnection"); ;
+
     builder.Services
-    .AddRazorPages();
+        .AddDbContext<UserContext>(options => options.UseSqlite(connectionString))
+        .AddRazorPages();
+
+    builder.Services
+        .AddDefaultIdentity<SharpStatusAppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+        .AddEntityFrameworkStores<UserContext>();
 
     var app = builder.Build();
 
@@ -31,6 +40,7 @@ try
     app.UseStatusCodePagesWithReExecute("/Error", "?code={0}");
     app.UseStaticFiles();
 
+    app.UseAuthentication();
     app.MapRazorPages();
 
     var life = app.Services.GetRequiredService<IHostApplicationLifetime>();
@@ -38,6 +48,12 @@ try
     {
         Log.Information("Stopping services");
     });
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var dataContext = scope.ServiceProvider.GetRequiredService<UserContext>();
+        dataContext.Database.Migrate();
+    }
 
     app.Run();
 }
