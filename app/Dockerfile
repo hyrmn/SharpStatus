@@ -13,6 +13,7 @@ RUN npm run build --workspaces
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS base
 
+#I have a separate restore layer so that it can be cached if there were no package changes
 FROM base AS dotnet-restore
 WORKDIR /work
 COPY SharpStatus.sln .
@@ -26,6 +27,7 @@ COPY ./test/ ./test
 RUN dotnet build --no-restore
 RUN dotnet test -r linux-musl-x64 --no-restore --no-build
 
+#Whereas you assume the source or tests are new each build
 FROM dotnet-restore AS publish
 COPY ./src/ ./src
 RUN dotnet build ./src/SharpStatusApp/SharpStatusApp.csproj -c release -o /build -r linux-musl-x64  --self-contained false --no-restore

@@ -1,24 +1,52 @@
+global using Serilog;
+
 using Tailwind;
 
-var builder = WebApplication.CreateBuilder(args);
-builder.Services
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
+
+Log.Information("Starting up");
+
+try
+{
+
+    var builder = WebApplication.CreateBuilder(args);
+    builder.Configuration.AddEnvironmentVariables();
+
+    builder.Host.UseSerilog((hostContext, loggerConfiguration) =>
+        loggerConfiguration.ReadFrom.Configuration(hostContext.Configuration)
+    );
+
+    builder.Services
     .AddRazorPages();
 
-var app = builder.Build();
+    var app = builder.Build();
 
-app.UseStatusCodePagesWithReExecute("/Error", "?code={0}");
-app.UseStaticFiles();
+    if (app.Environment.IsDevelopment())
+    {
+        app.RunTailwind("tailwind", "./");
+    }
 
-app.MapRazorPages();
+    app.UseStatusCodePagesWithReExecute("/Error", "?code={0}");
+    app.UseStaticFiles();
 
-var life = app.Services.GetRequiredService<IHostApplicationLifetime>();
-life.ApplicationStopped.Register(() => {
-    Console.WriteLine("Application is shut down");
-});
+    app.MapRazorPages();
 
-if (app.Environment.IsDevelopment())
-{
-    app.RunTailwind("tailwind", "./");
+    var life = app.Services.GetRequiredService<IHostApplicationLifetime>();
+    life.ApplicationStopped.Register(() =>
+    {
+        Log.Information("Stopping services");
+    });
+
+    app.Run();
 }
-
-app.Run();
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Unhandled exception");
+}
+finally
+{
+    Log.Information("Shut down complete");
+    Log.CloseAndFlush();
+}
