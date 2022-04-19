@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+    <PackageReference Include="Tailwind.Extensions.AspNetCore" Version="1.0.0-beta3" />
   </ItemGroup>
 
 </Project>

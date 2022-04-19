@@ -6,7 +6,8 @@
     "clean": "rimraf ./dist/",
     "build:css": "npx tailwindcss -i ./Styles/site.css -o ./wwwroot/css/site.css --minify",
     "build:js": "echo 'no js'",
-    "build": "npm run clean && npm-run-all --parallel build:*"
+    "build": "npm run clean && npm-run-all --parallel build:*",
+    "tailwind": "npm run build:css"
   },
   "dependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.0",
