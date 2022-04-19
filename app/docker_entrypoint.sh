@@ -20,10 +20,8 @@ set -x
 
 if [[ "${IS_LITESTREAM_ENABLED}" == 'true' ]]; then
 
-  /app/litestream restore -if-replica-exists
-
   exec /app/litestream replicate \
-    -exec "dotnet SharpStatusApp.dll"
+    -exec "dotnet SharpStatusApp.dll" 
 else
   # Start server.
   dotnet SharpStatusApp.dll
