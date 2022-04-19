@@ -1,3 +1,18 @@
+FROM debian:stable-20211011-slim AS litestream_downloader
+
+ARG litestream_version="v0.3.8"
+ARG litestream_binary_tgz_filename="litestream-${litestream_version}-linux-amd64-static.tar.gz"
+
+WORKDIR /litestream
+
+RUN set -x && \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+      ca-certificates \
+      wget
+RUN wget "https://github.com/benbjohnson/litestream/releases/download/${litestream_version}/${litestream_binary_tgz_filename}"
+RUN tar -xvzf "${litestream_binary_tgz_filename}"
+
 FROM node:lts-alpine3.14 AS node-restore
 ENV NODE_ENV=production
 WORKDIR /assets
@@ -31,16 +46,26 @@ RUN dotnet test -r linux-musl-x64 --no-restore --no-build
 FROM dotnet-restore AS publish
 COPY ./src/ ./src
 RUN dotnet build ./src/SharpStatusApp/SharpStatusApp.csproj -c release -o /build -r linux-musl-x64  --self-contained false --no-restore
-RUN dotnet publish -c release -o /dist -r linux-musl-x64 --self-contained false --no-restore
+RUN dotnet publish ./src/SharpStatusApp/SharpStatusApp.csproj -c release -o /dist -r linux-musl-x64 --self-contained false --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS runtime
+
+RUN apk add --no-cache bash
+
 WORKDIR /app
+COPY --from=litestream_downloader /litestream/litestream ./litestream
 COPY --from=node-build /assets/src/SharpStatusApp/wwwroot/css/site.css ./wwwroot/css/site.css
 COPY --from=publish /dist .
+COPY ./litestream.yml /etc/litestream.yml
+COPY ./docker_entrypoint.sh ./docker_entrypoint.sh
+
+RUN chmod +x ./docker_entrypoint.sh
 
 ENV ASPNETCORE_ENVIRONMENT=production
-ENV ASPNETCORE_URLS http://+:8080
+ENV ASPNETCORE_URLS=http://+:8080
+ENV DB_SYNC_INTERVAL=10s
 
 EXPOSE 8080
 
-ENTRYPOINT ["dotnet", "SharpStatusApp.dll"]
+ENTRYPOINT ["/app/docker_entrypoint.sh"]
+#ENTRYPOINT ["dotnet", "SharpStatusApp.dll"]
