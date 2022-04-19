@@ -20,6 +20,8 @@ set -x
 
 if [[ "${IS_LITESTREAM_ENABLED}" == 'true' ]]; then
 
+  /app/litestream restore -if-replica-exists -v "/app/data/users.db"
+
   exec /app/litestream replicate \
     -exec "dotnet SharpStatusApp.dll" 
 else
