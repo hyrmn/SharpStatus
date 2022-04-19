@@ -52,14 +52,16 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS runtime
 
 RUN apk add --no-cache bash
 
-WORKDIR /app
-COPY --from=litestream_downloader /litestream/litestream ./litestream
-COPY --from=node-build /assets/src/SharpStatusApp/wwwroot/css/site.css ./wwwroot/css/site.css
-COPY --from=publish /dist .
+RUN mkdir -p /app/data
+COPY --from=litestream_downloader /litestream/litestream /app/litestream
+COPY --from=node-build /assets/src/SharpStatusApp/wwwroot/css/site.css /app/wwwroot/css/site.css
+COPY --from=publish /dist /app
 COPY ./litestream.yml /etc/litestream.yml
-COPY ./docker_entrypoint.sh ./docker_entrypoint.sh
+COPY ./docker_entrypoint.sh /app/docker_entrypoint.sh
 
-RUN chmod +x ./docker_entrypoint.sh
+RUN chmod +x /app/docker_entrypoint.sh
+
+WORKDIR /app
 
 ENV ASPNETCORE_ENVIRONMENT=production
 ENV ASPNETCORE_URLS=http://+:8080
