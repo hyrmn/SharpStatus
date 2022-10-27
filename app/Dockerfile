@@ -21,8 +21,8 @@ RUN npm ci --prefer-offline --no-audit --progress=false
 
 FROM node-restore AS node-build
 COPY ["./src/SharpStatusApp/package.json", "./src/SharpStatusApp/tailwind.config.js", "./src/SharpStatusApp/"]
-COPY ./src/SharpStatusApp/Styles ./src/SharpStatusApp/Styles
-COPY ./src/SharpStatusApp/Scripts ./src/SharpStatusApp/Scripts
+COPY ./src/SharpStatusApp/wwwroot/css ./src/SharpStatusApp/wwwroot/css
+COPY ./src/SharpStatusApp/wwwroot/js ./src/SharpStatusApp/wwwroot/js
 COPY ./src/SharpStatusApp/Pages ./src/SharpStatusApp/Pages
 RUN npm run build --workspaces
 
