@@ -26,6 +26,8 @@ try
         .AddDbContext<UserContext>(options => options.UseSqlite(connectionString))
         .AddRazorPages();
 
+    builder.Services.AddHeroicons(builder.Configuration);
+
     builder.Services
         .AddDefaultIdentity<SharpStatusAppUser>(options => options.SignIn.RequireConfirmedAccount = true)
         .AddEntityFrameworkStores<UserContext>();

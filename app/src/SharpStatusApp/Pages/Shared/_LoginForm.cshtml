@@ -1,0 +1,61 @@
+﻿@model SharpStatusApp.Pages.Index.InputModel
+@using Microsoft.AspNetCore.Mvc;
+
+<form hx-post="@Url.Page("Index")"
+      hx-swap="outerHTML"
+      class="mt-8 space-y-6"
+      _="on htmx:beforeSend set #submitButton.disabled to 'disabled'">
+
+    @if (!ViewContext.ViewData.ModelState.IsValid)
+    {
+        <div class="rounded-md bg-yellow-50 p-4">
+            <div class="flex">
+            <div class="flex-shrink-0">
+                <heroicon-solid icon="mini/exclamation-triangle" class="h-6 w-6 text-orange-500" />
+                <!-- Heroicon name: mini/exclamation-triangle -->
+                <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M8.485 3.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 3.495zM10 6a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 6zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div class="ml-3">
+                <div asp-validation-summary="All" class="text-sm text-yellow-700"></div>
+            </div>
+        </div>
+    </div>
+    }
+
+    <div class="-space-y-px rounded-md shadow-sm">
+        <div>
+            <label asp-for="Email" class="sr-only">Email address</label>
+            <input asp-for="Email" type="email" autocomplete="email" required class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Email address">
+        </div>
+        <div>
+            <label asp-for="Password" class="sr-only">Password</label>
+            <input asp-for="Password" type="password" autocomplete="current-password" required class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Password">
+        </div>
+    </div>
+
+    <div class="flex items-center justify-between">
+        <div class="flex items-center">
+            <input asp-for="RememberMe" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-50">
+            <label asp-for="RememberMe" class="ml-2 block text-sm text-gray-900">Remember me?</label>
+        </div>
+
+        <div class="text-sm">
+            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot your password?</a>
+        </div>
+    </div>
+
+    <div>
+        <button type="submit" id="submitButton" class="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                <!-- Heroicon name: mini/lock-closed -->
+                <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+                </svg>
+            </span>
+            Sign in
+        </button>
+        @Html.AntiForgeryToken()
+    </div>
+</form>

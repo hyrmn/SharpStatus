@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SharpStatusApp.Pages
 {
-    public class Index : PageModel
+    public class LogsModel : PageModel
     {
         [BindProperty]
         public InputModel Input { get; set; }
@@ -48,16 +48,11 @@ namespace SharpStatusApp.Pages
             {
                 ModelState.AddModelError("", "Incorrect username or password");
                 return Request.IsHtmx()
-                    ? Partial("_LoginForm", this.Input)
+                    ? Partial("_LoginForm", this)
                     : Page();
             }
 
-            if (Request.IsHtmx())
-            {
-                Response.Htmx(headers => headers.Redirect(Url.Page("Logs") ?? "logs"));
-            }
-
-            return Redirect("~/logs");
+            return LocalRedirect("~/logs");
         }
     }
 }
