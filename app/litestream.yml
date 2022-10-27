@@ -3,3 +3,7 @@ dbs:
     replicas:
       - url: ${DB_REPLICA_URL}/users.db
         sync-interval: ${DB_SYNC_INTERVAL}
+  - path: /app/data/todo.db
+    replicas:
+      - url: ${DB_REPLICA_URL}/todo.db
+        sync-interval: ${DB_SYNC_INTERVAL}        
