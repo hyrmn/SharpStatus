@@ -9,6 +9,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Scripts\**" />
+	  <Compile Remove="Styles\**" />
+	  <Content Remove="Scripts\**" />
+	  <Content Remove="Styles\**" />
+	  <EmbeddedResource Remove="Scripts\**" />
+	  <EmbeddedResource Remove="Styles\**" />
+	  <None Remove="Scripts\**" />
+	  <None Remove="Styles\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<InternalsVisibleTo Include="SharpStatusApp.Tests" />
 	</ItemGroup>
 
@@ -30,11 +41,6 @@
 		<PackageReference Include="serilog.aspnetcore" Version="5.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
 		<PackageReference Include="Tailwind.Extensions.AspNetCore" Version="1.0.0-beta3" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Scripts\" />
-	  <Folder Include="Styles\" />
 	</ItemGroup>
 
 	<ItemGroup>

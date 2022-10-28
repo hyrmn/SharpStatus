@@ -3,56 +3,46 @@ using Htmx;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-using System.ComponentModel.DataAnnotations;
+using SharpStatusApp.Models;
 
-namespace SharpStatusApp.Pages
+namespace SharpStatusApp.Pages;
+
+public partial class Logs : PageModel
 {
-    public class LogsModel : PageModel
+    [BindProperty(SupportsGet = true)]
+    public string RequestId { get; set; }
+
+    public IEnumerable<Entry> Entries { get; set; }
+
+    public void OnGet()
     {
-        [BindProperty]
-        public InputModel Input { get; set; }
-
-        public class InputModel
+        Entries = new List<Entry>
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
-            [EmailAddress]
-            public string Email { get; set; }
-
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
-            [DataType(DataType.Password)]
-            public string Password { get; set; }
-
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Display(Name = "Remember me?")]
-            public bool RememberMe { get; set; }
-        }
-
-        public void OnGet()
-        {
-        }
-
-        public async Task<IActionResult> OnPost()
-        {
-            if(Input.Password == "fail")
-            {
-                ModelState.AddModelError("", "Incorrect username or password");
-                return Request.IsHtmx()
-                    ? Partial("_LoginForm", this)
-                    : Page();
-            }
-
-            return LocalRedirect("~/logs");
-        }
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Get, Path = "public-api/events", Status = System.Net.HttpStatusCode.OK, Timestamp = DateTime.UtcNow.AddDays(-10), ClientId = "35.170.55.12"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Post, Path = "public-api/providers", Status = System.Net.HttpStatusCode.OK, Timestamp = DateTime.UtcNow.AddDays(-10), ClientId = "35.170.55.12"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Put, Path = "public-api/events", Status = System.Net.HttpStatusCode.OK, Timestamp = DateTime.UtcNow.AddDays(-10), ClientId = "35.170.55.12"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Patch, Path = "public-api/events", Status = System.Net.HttpStatusCode.OK, Timestamp = DateTime.UtcNow.AddDays(-10), ClientId = "35.170.55.12"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Delete, Path = "public-api/events", Status = System.Net.HttpStatusCode.OK, Timestamp = DateTime.UtcNow.AddDays(-10), ClientId = "35.170.55.12"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Get, Path = "public-api/providers", Status = System.Net.HttpStatusCode.BadRequest, Timestamp = DateTime.UtcNow.AddDays(-5), ClientId = "35.170.55.12"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Post, Path = "public-api/events", Status = System.Net.HttpStatusCode.BadRequest, Timestamp = DateTime.UtcNow.AddDays(-5), ClientId = "36.189.22.10"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Put, Path = "public-api/events", Status = System.Net.HttpStatusCode.BadRequest, Timestamp = DateTime.UtcNow.AddDays(-5), ClientId = "36.189.22.10"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Patch, Path = "public-api/events", Status = System.Net.HttpStatusCode.BadRequest, Timestamp = DateTime.UtcNow.AddDays(-5), ClientId = "36.189.22.10"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Delete, Path = "public-api/events", Status = System.Net.HttpStatusCode.BadRequest, Timestamp = DateTime.UtcNow.AddDays(-5), ClientId = "36.189.22.10"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Get, Path = "public-api/events", Status = System.Net.HttpStatusCode.NotFound, Timestamp = DateTime.UtcNow.AddDays(-2), ClientId = "35.170.55.12"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Post, Path = "public-api/providers", Status = System.Net.HttpStatusCode.NotFound, Timestamp = DateTime.UtcNow.AddDays(-2), ClientId = "35.170.55.12"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Put, Path = "public-api/events", Status = System.Net.HttpStatusCode.NotFound, Timestamp = DateTime.UtcNow.AddDays(-2), ClientId = "35.170.55.12"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Patch, Path = "public-api/events", Status = System.Net.HttpStatusCode.NotFound, Timestamp = DateTime.UtcNow.AddDays(-2), ClientId = "35.170.55.12"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Delete, Path = "public-api/events", Status = System.Net.HttpStatusCode.NotFound, Timestamp = DateTime.UtcNow.AddDays(-2), ClientId = "35.170.55.12"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Get, Path = "public-api/events", Status = System.Net.HttpStatusCode.BadGateway, Timestamp = DateTime.UtcNow.AddDays(-1), ClientId = "36.189.22.10"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Post, Path = "public-api/events", Status = System.Net.HttpStatusCode.BadGateway, Timestamp = DateTime.UtcNow.AddDays(-1), ClientId = "36.189.22.10"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Put, Path = "public-api/events", Status = System.Net.HttpStatusCode.BadGateway, Timestamp = DateTime.UtcNow.AddDays(-1), ClientId = "36.189.22.10"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Patch, Path = "public-api/providers", Status = System.Net.HttpStatusCode.BadGateway, Timestamp = DateTime.UtcNow.AddDays(-1), ClientId = "36.189.22.10"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Delete, Path = "public-api/events", Status = System.Net.HttpStatusCode.BadGateway, Timestamp = DateTime.UtcNow.AddDays(-1), ClientId = "36.189.22.10"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Get, Path = "public-api/providers", Status = System.Net.HttpStatusCode.NoContent, Timestamp = DateTime.UtcNow, ClientId = "35.170.55.12"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Post, Path = "public-api/events", Status = System.Net.HttpStatusCode.NoContent, Timestamp = DateTime.UtcNow, ClientId = "35.170.55.12"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Put, Path = "public-api/events", Status = System.Net.HttpStatusCode.NoContent, Timestamp = DateTime.UtcNow, ClientId = "35.170.55.12"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Patch, Path = "public-api/events", Status = System.Net.HttpStatusCode.NoContent, Timestamp = DateTime.UtcNow, ClientId = "35.170.55.12"},
+            new Entry { RequestId = Guid.NewGuid().ToString(), ProviderId = Guid.NewGuid().ToString(), Method = HttpMethod.Delete, Path = "public-api/providers", Status = System.Net.HttpStatusCode.NoContent, Timestamp = DateTime.UtcNow, ClientId = "35.170.55.12"},
+        };
     }
 }
